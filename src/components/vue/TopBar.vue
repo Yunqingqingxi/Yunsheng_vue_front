@@ -27,7 +27,7 @@ import {ref} from "vue";
 
 const store = useCounterStore()
 const avatar = ref(null)
-store.setUser("111", 'admin')
+
 
 /**
  * 登出

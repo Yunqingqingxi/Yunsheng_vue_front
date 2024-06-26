@@ -5,7 +5,7 @@ import {ElMessage} from "element-plus";
 import {ref} from "vue";
 import {useRouter} from "vue-router";
 import {useCounterStore} from "@/stores/counter.js";
-import {toLogin, toRegister} from "@/api/user.js";
+import {toLogin, toRegister} from "@/api/employee.js";
 
 
 const router=useRouter()
@@ -32,7 +32,7 @@ const login=async () => {
   ElMessage.success(result.msg ? result.msg : '登录成功')
   store.setUser(result.data.token, registerData.value.username)
 
-  await router.push('/buju')
+  await router.push('/home')
 }
 /**
  * 注册方法

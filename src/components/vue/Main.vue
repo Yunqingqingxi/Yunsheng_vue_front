@@ -1,5 +1,4 @@
 <script setup>
-
 import SideBar from '@/components/vue/SideBar.vue'
 import TopBar from '@/components/vue/TopBar.vue'
 </script>
