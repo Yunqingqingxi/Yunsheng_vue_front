@@ -1,38 +1,72 @@
-import {createRouter, createWebHistory} from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import {createRouter, createWebHistory} from "vue-router";
 
-const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
-    routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: HomeView
-        },
-        {
-            path: '/about',
-            name: 'about',
-            // route level code-splitting
-            // this generates a separate chunk (About.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
-            component: () => import('../views/AboutView.vue'),
-            meta: {requiresAuth: true}
-        }
-    ]
-})
+import Welcome from "@/views/Login.vue"
 
-router.beforeEach((to, from, next) => {
-    if (to.meta.requiresAuth) {
-        const isUser = JSON.parse(localStorage.getItem('user'))
-        if (isUser.isAuthenticated) {
-            next()
-        } else {
-            alert("请先登录")
-            next("/")
-        }
-    } else {
-        next()
+
+import Emp from "@/views/Emp.vue"
+import Dish from "@/views/Dish.vue"
+import Catagory from "@/views/Catagory.vue"
+import AllTotal from "@/views/AllTotal.vue"
+import Main from '@/components/vue/Main.vue'
+import Work from "@/views/Work.vue"
+import Order from "@/views/Order.vue";
+import SetEmal from "@/views/Setemal.vue"
+import NotFound from "@/views/NotFound.vue";
+
+const routes=[
+    {
+        path: '/',
+        redirect: '/login'
+    },
+    {
+        path: '/login',
+        component: Welcome
+    },
+    {
+        path: '/home',
+        component: Main,
+        redirect: '/Emp',
+        children: [
+            {
+                path: '/emp',
+                component: Emp
+            },
+            {
+                path: '/dish',
+                component: Dish
+            },
+            {
+                path: '/catagory',
+                component: Catagory
+            },
+            {
+                path: '/setemal',
+                component: SetEmal
+            },
+            {
+                path: '/work',
+                component: Work
+            },
+            {
+                path: '/alltotal',
+                component: AllTotal
+            },
+            {
+                path: '/order',
+                component: Order
+            },
+        ]
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: '404',
+        component: NotFound
+
     }
-})
+]
 
-export default router
+const index=createRouter({
+    history:createWebHistory(),
+    routes
+})
+export default index
