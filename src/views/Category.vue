@@ -2,6 +2,7 @@
 import {ref} from 'vue'
 import {useCounterStore} from "@/stores/counter.js";
 import {page,status,categoryList}from "@/api/category.js"
+import {Delete, Edit} from "@element-plus/icons-vue";
 const store = useCounterStore()
 
 /**
@@ -14,11 +15,32 @@ const classify = ref({
   sort: 0,
   type: 0
 });
-page()
+
+const tableData = ref([])
+const pages=async ()=>{
+  const result =await page();
+  tableData.value=result.data.records
+}
+pages()
 </script>
 <template>
   <el-card class="page-container">
-    分类
+    <el-table :data="tableData" style="width: 100%">
+      <el-table-column label="序号" width="100" type="index"></el-table-column>
+      <el-table-column label="级别" prop="id"></el-table-column>
+      <el-table-column label="姓名" prop="type"></el-table-column>
+      <el-table-column label="电话" prop="name"></el-table-column>
+      <el-table-column label="状态" prop="sort"></el-table-column>
+      <el-table-column label="操作" width="100">
+        <template #default="{ row }">
+          <el-button :icon="Edit" circle plain type="primary" @click="editCategory(row)"></el-button>
+          <el-button :icon="Delete" circle plain type="danger" @click="deleteCategory(row)"></el-button>
+        </template>
+      </el-table-column>
+      <template #empty>
+        <el-empty description="没有数据"/>
+      </template>
+    </el-table>
   </el-card>
 </template>
 
