@@ -25,23 +25,14 @@ export const toRegister = (data) => {
         data
     })
 }
-/**
- * 获取员工列表
- * @param data
- * @return {Promise<axios.AxiosResponse<any>>}
- */
 export const getEmplist = (data) => {
     return request({
         method: 'Get',
-        url: '/admin/employee/page?page=1&pageSize=10',
+        url: `/admin/employee/page?page=1&pageSize=10`,
 
     })
 }
-/**
- * 修改员工信息
- * @param data
- * @return {Promise<axios.AxiosResponse<any>>}
- */
+
 export const addEmprequset = (data) => {
     return request({
         method: 'POST',
@@ -49,18 +40,20 @@ export const addEmprequset = (data) => {
         data
     })
 }
-/**
- * 修改员工信息
- * @param id
- * @return {Promise<axios.AxiosResponse<any>>}
- */
-export const deleteEmp = ({name}) => {
-    return request({
-        method: 'DELETE',
-        url: `/admin/employee/${name}`,
-    })
+
+export const deleteEmp = (row) => {
+    if(row.status === 1) {
+        row.status = 0;  // 如果状态是 1，将其设置为 0
+    } else if(row.status === 0) {
+        row.status = 1;  // 如果状态是 0，将其设置为 1
+    }
+
+    return request.post(`/admin/employee/status/${row.id}?status=${row.status}`)
 }
 
+export const editEmpinfo = (data) => {
+    return request.put('/admin/employee', data)
 
+}
 
 

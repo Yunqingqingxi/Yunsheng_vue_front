@@ -24,6 +24,27 @@ const pages=async ()=>{
 pages()
 </script>
 <template>
+  <div>
+    <el-row class="login-page" >
+      <el-col :span="10" class="bg">
+        <h>员工姓名</h>
+        <el-input v-model="search" placeholder="请输入员工姓名" />
+        <el-button icon="" type="primary">搜索</el-button>
+      </el-col>
+      <el-col :span="10" class="bg">
+        <h>员工姓名</h>
+        <el-input v-model="search" placeholder="请输入员工姓名" />
+        <el-button icon="" type="primary">搜索</el-button>
+      </el-col>
+
+      <el-col :span="2" class="bg">
+        <el-button type="primary" @click="showdialog()"  >添加员工</el-button>
+      </el-col>
+      <el-col :span="2" class="bg">
+        <el-button type="primary" @click="showdialog()"  >添加员工</el-button>
+      </el-col>
+    </el-row>
+  </div>
   <el-card class="page-container">
     <el-table :data="tableData" style="width: 100%">
       <el-table-column label="序号" width="100" type="index"></el-table-column>
