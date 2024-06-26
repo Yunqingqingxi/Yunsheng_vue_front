@@ -2,39 +2,49 @@
 
 import {Lock, User} from "@element-plus/icons-vue";
 import {ElMessage} from "element-plus";
-
-
 import {ref} from "vue";
 import {useRouter} from "vue-router";
 import {useCounterStore} from "@/stores/counter.js";
-import {tologin, toregister} from "@/api/user.js";
+import {toLogin, toRegister} from "@/api/user.js";
 
 
 const router=useRouter()
 const store = useCounterStore()
 const form=ref(null)
+const isRegister = ref(false)
 
+/**
+ * 注册表单数据
+ * @type {Ref<UnwrapRef<{password: string, rePassword: string, username: string}>>}
+ */
 const registerData=ref({
   username: '',
   password: '',
   rePassword: ''
 })
-
-const isRegister=ref(false)
-
-
+/**
+ * 登录方法
+ * @return {Promise<void>}
+ */
 const login=async () => {
-    const result=await tologin(registerData.value);
+  const result = await toLogin(registerData.value);
     ElMessage.success(result.msg?result.msg:'登录成功')
   store.setUser(result.data, registerData.value.username)
   await router.push('/buju')
 }
+/**
+ * 注册方法
+ * @return {Promise<void>}
+ */
 const register=async ()=>{
-  const result=await toregister(registerData.value);
+  const result = await toRegister(registerData.value);
   ElMessage.success(result.message?result.message:'注册成功')
 
 }
 
+/**
+ * 重置表单
+ */
 const clearRegisterData=()=>{
   registerData.value={
     username:'',password:'',rePassword:''

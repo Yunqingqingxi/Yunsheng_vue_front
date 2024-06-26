@@ -2,44 +2,58 @@
 import {ref} from 'vue'
 
 import {ElMessage, ElMessageBox} from "element-plus";
-import {getBlist, loginout, toadd, todelete} from "@/api/score.js";
+import {getStuBList, loginOut, toAdd, toDelete} from "@/api/score.js";
 import {useCounterStore} from "@/stores/counter.js";
 import router from "@/router/index.js";
 
 
-const student = ref([
+const student = ref([])
+const vo = ref([])
+const dialogVisible = ref(false)
+const form = ref(null)
+const store = useCounterStore()
 
-])
-const vo=ref([]
-)
-
-const addStudeng = ref({
+/**
+ * 添加表单
+ * @type {Ref<UnwrapRef<{teacher: string, name: string, ascore: string, bscore: string}>>}
+ */
+const addStudent = ref({
   name:'',
   teacher: '',
   ascore: '',
   bscore: '',
-
 });
 
-
+/**
+ * 列表
+ * @return {Promise<void>}
+ */
 const list = async () => {
-  const result = await getBlist();
+  const result = await getStuBList();
   student.value = result.data
 }
-list()
 
-
-const dialogVisible = ref(false)
+/**
+ * 显示遮罩
+ */
 const showDialog = () => {
   dialogVisible.value = true
 }
 
-const toaddstu =async () => {
-  const add=await toadd(addStudeng.value);
+/**
+ * 添加信息
+ * @return {Promise<void>}
+ */
+const toAddStu = async () => {
+  const add = await toAdd(addStudent.value);
   ElMessage.success(add.message?add.message:'添加成功')
-  list()
+  await list()
 }
 
+/**
+ * 删除信息
+ * @param row
+ */
 const deleteCategory = (row) => {
   ElMessageBox.confirm(
       '你确认要删除该学生信息吗？',
@@ -51,23 +65,24 @@ const deleteCategory = (row) => {
       }
   ).then(
       async () => {
-        await  todelete(row.name)
+        await toDelete(row.name)
         ElMessage.success("删除成功")
         await list()
       }
   )
 }
-const form=ref(null)
+/**
+ * 登出
+ * @return {Promise<void>}
+ */
 const out=async ()=>{
-  const result = await loginout();
+  const result = await loginOut();
   store.clearToken()
   ElMessage.success("退出成功")
-  router.push('/login')
+  await router.push('/login')
 }
 
-const store = useCounterStore()
-
-
+list()
 </script>
 <template>
   <el-card class="page-container">
@@ -102,25 +117,25 @@ const store = useCounterStore()
 
 <!--     添加分类弹窗-->
     <el-dialog v-model="dialogVisible" width="30%">
-      <el-form ref="form" :model="addStudeng"  label-width="100px" style="padding-right: 30px">
+      <el-form ref="form" :model="addStudent" label-width="100px" style="padding-right: 30px">
         <el-form-item label="课程名称" prop="categoryName">
-          <el-input v-model="addStudeng.name" minlength="1" maxlength="10"></el-input>
+          <el-input v-model="addStudent.name" maxlength="10" minlength="1"></el-input>
         </el-form-item>
         <el-form-item label="教师" prop="categoryAlias">
-          <el-input v-model="addStudeng.teacher" minlength="1" maxlength="15"></el-input>
+          <el-input v-model="addStudent.teacher" maxlength="15" minlength="1"></el-input>
         </el-form-item>
         <el-form-item label="a" prop="categoryAlias">
-          <el-input v-model="addStudeng.ascore" minlength="1" maxlength="15"></el-input>
+          <el-input v-model="addStudent.ascore" maxlength="15" minlength="1"></el-input>
         </el-form-item>
         <el-form-item label="b" prop="categoryAlias">
-          <el-input v-model="addStudeng.bscore" minlength="1" maxlength="15"></el-input>
+          <el-input v-model="toAddStu.bscore" maxlength="15" minlength="1"></el-input>
         </el-form-item>
 
       </el-form>
       <template #footer>
         <span class="dialog-footer">
             <el-button @click="dialogVisible = false">取消</el-button>
-            <el-button type="primary" @click="toaddstu();dialogVisible=false;"> 确认 </el-button>
+            <el-button type="primary" @click="toAddStu();dialogVisible=false;"> 确认 </el-button>
         </span>
       </template>
     </el-dialog>

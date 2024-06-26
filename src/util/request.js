@@ -4,9 +4,17 @@ import {useCounterStore} from "@/stores/counter.js";
 
 import router from "@/router";
 
-const instance = axios.create({baseURL: '/api'});
-
-
+const instance = axios.create(
+    {
+        baseURL: '/api',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+);
+/**
+ *  请求拦截器
+ */
 instance.interceptors.request.use(
     config => {
         const store = useCounterStore();
@@ -19,6 +27,10 @@ instance.interceptors.request.use(
         return Promise.reject(error)
     }
 )
+
+/**
+ *  响应拦截器
+ */
 
 instance.interceptors.response.use(
     result => {

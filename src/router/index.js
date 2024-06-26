@@ -10,26 +10,59 @@ import AllTotal from "@/components/AllTotal.vue"
 import buju from '@/components/vue/buju.vue'
 import Work from "@/components/Work.vue"
 import Order from "@/components/Order.vue";
-import Setemal from "@/components/Setemal.vue"
+import SetEmal from "@/components/Setemal.vue"
+import NotFound from "@/views/NotFound.vue";
 
 const routes=[
-    {path:'/',redirect:'/login'},
-    {path:'/login',component:Welcome},
-
-    {path:'/buju',component:buju,
+    {
+        path: '/',
+        redirect: '/login'
+    },
+    {
+        path: '/login',
+        component: Welcome
+    },
+    {
+        path: '/buju',
+        component: buju,
         redirect: '/Emp',
-    children:[
-        {path: '/Emp',component:Emp},
-        {path:'/Dish',component:Dish},
-        {path:'/Catagory',component:Catagory},
-        {path:'/Setemal',component:Setemal},
-        {path:'/Work',component:Work},
-        {path:'/AllTotal',component:AllTotal},
-        {path:'/Order',component:Order},
-    ]
+        children: [
+            {
+                path: '/emp',
+                component: Emp
+            },
+            {
+                path: '/dish',
+                component: Dish
+            },
+            {
+                path: '/catagory',
+                component: Catagory
+            },
+            {
+                path: '/setemal',
+                component: SetEmal
+            },
+            {
+                path: '/work',
+                component: Work
+            },
+            {
+                path: '/alltotal',
+                component: AllTotal
+            },
+            {
+                path: '/order',
+                component: Order
+            },
+        ]
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: '404',
+        component: NotFound
 
     }
-
 ]
 
 const index=createRouter({

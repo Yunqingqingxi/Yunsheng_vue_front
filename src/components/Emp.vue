@@ -3,42 +3,60 @@ import {Delete, Edit} from '@element-plus/icons-vue'
 import {ref} from 'vue'
 
 import {ElMessage, ElMessageBox} from "element-plus";
-import {getlist, getlistscore, loginout, toadd, todelete} from "@/api/student.js";
+import {getList, getListScore, loginOut, toAdd, toDelete} from "@/api/student.js";
 import {useCounterStore} from "@/stores/counter.js";
 import router from "@/router/index.js";
 
 const store = useCounterStore()
 
-const student = ref([
+const student = ref([])
+const vo = ref([])
+const form = ref(null)
+const dialogVisible = ref(false)
 
-])
-const vo=ref([]
-)
-
-const addStudeng = ref({
-  studnetId: '',
+/**
+ * 定义发送的数据
+ * @type {Ref<UnwrapRef<{studentName: string, studentScore: string, studnetId: string}>>}
+ */
+const addStudent = ref({
+  studentId: '',
   studentName: '',
   studentScore: ''
 });
+
+/**
+ * 获取学生数据
+ * @return {Promise<void>}
+ */
 const list = async () => {
-  const result = await getlist();
-const resultvo=await getlistscore()
+  const result = await getList();
+  const resultVo = await getListScore()
   student.value = result.data
- vo.value = resultvo.data
+  vo.value = resultVo.data
 }
 
-list()
-
-const toaddstu =async () => {
-  const add=await toadd(addStudeng.value);
+/**
+ * 添加学生
+ * @return {Promise<void>}
+ */
+const toAddStu = async () => {
+  const add = await toAdd(addStudent.value);
   ElMessage.success(add.message?add.message:'添加成功')
   await list()
 }
 
-const dialogVisible = ref(false)
+/**
+ * 显示遮罩
+ * @param row
+ */
 const showDialog = (row) => {
   dialogVisible.value = true
 }
+
+/**
+ * 删除学生
+ * @param row
+ */
 
 const deleteCategory = (row) => {
   ElMessageBox.confirm(
@@ -51,25 +69,26 @@ const deleteCategory = (row) => {
       }
   ).then(
       async () => {
-        await  todelete(row.studentId)
+        await toDelete(row.studentId)
         ElMessage.success("删除成功")
         await list()
       }
   )
 }
 
-const form=ref(null)
-
-
-const tokenStore=useTokenStore()
+/**
+ * 退出登录
+ * @return {Promise<void>}
+ */
 const out=async ()=>{
-  const result=await loginout();
+  const result = await loginOut();
   store.clearToken()
   ElMessage.success("退出成功")
-router.push('/login')
+  await router.push('/login')
 }
 
-
+// 启动时运行list 方法
+list()
 
 </script>
 <template>
@@ -101,21 +120,21 @@ router.push('/login')
 
     <!-- 添加分类弹窗 -->
     <el-dialog v-model="dialogVisible" width="30%">
-      <el-form ref="form" :model="addStudeng"  label-width="100px" style="padding-right: 30px">
+      <el-form ref="form" :model="addStudent" label-width="100px" style="padding-right: 30px">
         <el-form-item label="学生id" prop="categoryName">
-          <el-input v-model="addStudeng.studentId" minlength="1" maxlength="15"></el-input>
+          <el-input v-model="addStudent.studentId" maxlength="15" minlength="1"></el-input>
         </el-form-item>
         <el-form-item label="学生姓名" prop="categoryAlias">
-          <el-input v-model="addStudeng.studentName" minlength="1" maxlength="15"></el-input>
+          <el-input v-model="addStudent.studentName" maxlength="15" minlength="1"></el-input>
         </el-form-item>
         <el-form-item label="学生成绩" prop="categoryAlias">
-          <el-input v-model="addStudeng.studentScore" minlength="1" maxlength="15"></el-input>
+          <el-input v-model="addStudent.studentScore" maxlength="15" minlength="1"></el-input>
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
             <el-button @click="dialogVisible = false">取消</el-button>
-            <el-button type="primary" @click="toaddstu();dialogVisible=false;"> 确认 </el-button>
+            <el-button type="primary" @click="toAddStu();dialogVisible=false;"> 确认 </el-button>
         </span>
       </template>
     </el-dialog>

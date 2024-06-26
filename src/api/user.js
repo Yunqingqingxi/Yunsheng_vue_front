@@ -1,12 +1,28 @@
 import request from '@/util/request'
 
 
-
-export const tologin=(logindata)=>{
-    return request.post('/login',logindata)
+/**
+ * 登录方法
+ * @param data
+ * @return {Promise<axios.AxiosResponse<any>>}
+ */
+export const toLogin = (data) => {
+    return request({
+        method: 'POST',
+        url: '/user/login',
+        data
+    })
 }
-
-export const toregister=(registerdata)=>{
-    return request.put('/register',registerdata)
+/**
+ * 注册方法
+ * @param data
+ * @return {Promise<axios.AxiosResponse<any>>}
+ */
+export const toRegister = (data) => {
+    return request({
+        method: 'POST',
+        url: '/user/register',
+        data
+    })
 }
 

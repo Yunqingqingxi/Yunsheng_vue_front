@@ -1,21 +1,55 @@
 import request from '@/util/request'
 
-export const getlist=()=>{
-    return request.get('/list')
+/**
+ * 获取学生列表
+ * @return {Promise<axios.AxiosResponse<any>>}
+ */
+export const getList = () => {
+    return request({
+        method: 'get',
+        url: '/list',
+    })
 }
-
-export const getlistscore=()=>{
-    return request.get('/listscore')
+/**
+ * 获取学生成绩列表
+ * @return {Promise<axios.AxiosResponse<any>>}
+ */
+export const getListScore = () => {
+    return request({
+        method: 'get',
+        url: '/listscores',
+    })
 }
-
-export const toadd=(registerdata)=>{
-    return request.put('/add',registerdata)
+/**
+ * 添加
+ * @return {Promise<axios.AxiosResponse<any>>}
+ * @param data
+ */
+export const toAdd = (data) => {
+    return request({
+        method: 'PUT',
+        url: '/add',
+        data
+    })
 }
-
-export const todelete=(registerdata)=>{
-    return request.delete(`/del/${registerdata}`)
+/**
+ * 删除
+ * @return {Promise<axios.AxiosResponse<any>>}
+ * @param data
+ */
+export const toDelete = (data) => {
+    return request({
+        method: 'DELETE',
+        url: '/delete/' + data
+    })
 }
-
-export const loginout=()=>{
-    return request.delete('/loginout')
+/**
+ * 登出
+ * @return {Promise<axios.AxiosResponse<any>>}
+ */
+export const loginOut = () => {
+    return request({
+        method: 'DELETE',
+        url: '/loginout',
+    })
 }

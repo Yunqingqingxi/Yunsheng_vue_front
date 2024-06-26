@@ -1,19 +1,25 @@
 <script setup>
 
 import avatar from "@/assets/avatar.jpg";
-import {loginout} from "@/api/score.js";
+import {loginOut} from "@/api/score.js";
 import {ElMessage} from "element-plus";
 import router from "@/router/index.js";
 import {useCounterStore} from "@/stores/counter.js";
 
+const store = useCounterStore()
+
+/**
+ * 登出
+ * @return {Promise<void>}
+ */
 const out=async ()=>{
-  const result=await loginout();
+  const result = await loginOut();
   store.clearToken()
   ElMessage.success("退出成功")
   await router.push('/login')
 }
 
-const store = useCounterStore()
+
 </script>
 
 <template>

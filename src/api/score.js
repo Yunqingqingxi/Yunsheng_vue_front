@@ -1,20 +1,57 @@
 import request from '@/util/request'
 
-export const getSlist=()=>{
-    return request.get('/listA')
+/**
+ * 获取评价为A的学生
+ * @return {Promise<axios.AxiosResponse<any>>}
+ */
+export const getStuAList = () => {
+    return request({
+        method: 'get',
+        url: '/listA',
+    })
 }
-export const getBlist=()=>{
-    return request.get('/listB')
+/**
+ * 获取评价为B的学生
+ * @return {*}
+ */
+export const getStuBList = () => {
+    return request({
+        method: 'get',
+        url: '/listB',
+    })
 }
 
-export const toadd=(registerdata)=>{
-    return request.put('/addA',registerdata)
+/**
+ * 添加数据
+ * @param data
+ * @return {*}
+ */
+export const toAdd = (data) => {
+    return request({
+        method: 'PUT',
+        url: '/addA',
+        data
+    })
 }
 
-export const todelete=(registerdata)=>{
-    return request.delete(`/delA/${registerdata}`)
+/**
+ * 删除数据
+ * @return {Promise<axios.AxiosResponse<any>>}
+ * @param data
+ */
+export const toDelete = (data) => {
+    return request({
+        method: 'DELETE',
+        url: '/delA/' + data
+    })
 }
-
-export const loginout=()=>{
-    return request.delete('/loginoutA')
+/**
+ * 登出
+ * @return {Promise<axios.AxiosResponse<any>>}
+ */
+export const loginOut = () => {
+    return request({
+        method: 'DELETE',
+        url: '/loginoutA',
+    })
 }

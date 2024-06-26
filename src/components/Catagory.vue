@@ -1,20 +1,23 @@
 <script setup>
 import {Delete, Edit} from '@element-plus/icons-vue'
 import {ref} from 'vue'
-
 import {ElMessage, ElMessageBox} from "element-plus";
-import {getBlist, getSlist, loginout, toadd, todelete} from "@/api/score.js";
+import {getStuAList, getStuBList, loginOut, toAdd, toDelete} from "@/api/score.js";
 import {useCounterStore} from "@/stores/counter.js";
 import router from "@/router/index.js";
 
 
-const student = ref([
+const student = ref([])
+const vo = ref([])
+const dialogVisible = ref(false)
+const store = useCounterStore()
+const form = ref(null)
 
-])
-const vo=ref([]
-)
-
-const addStudeng = ref({
+/**
+ * 添加信息表单
+ * @type {Ref<UnwrapRef<{teacher: string, name: string, ascore: string, cscore: string, bscore: string}>>}
+ */
+const addStudent = ref({
   name:'',
   teacher: '',
   ascore: '',
@@ -22,28 +25,36 @@ const addStudeng = ref({
   cscore: '',
 });
 
-
+/**
+ * 查询列表
+ * @return {Promise<void>}
+ */
 const list = async () => {
-  const results = await getSlist();
-  const resultb = await getBlist();
+  const results = await getStuAList();
+  const resultb = await getStuBList();
   student.value = results.data
   vo.value=resultb.data
-
 }
 
-list()
-
-const dialogVisible = ref(false)
+/**
+ * 显示遮罩
+ */
 const showDialog = () => {
   dialogVisible.value = true
 }
-
-const toaddstu =async () => {
-  const add=await toadd(addStudeng.value);
+/**
+ * 添加信息
+ * @return {Promise<void>}
+ */
+const toAddStu = async () => {
+  const add = await toAdd(addStudeng.value);
   ElMessage.success(add.message?add.message:'添加成功')
   await list()
 }
-
+/**
+ * 删除信息
+ * @param row
+ */
 const deleteCategory = (row) => {
   ElMessageBox.confirm(
       '你确认要删除该学生信息吗？',
@@ -55,22 +66,26 @@ const deleteCategory = (row) => {
       }
   ).then(
       async () => {
-        await  todelete(row.name)
+        await toDelete(row.name)
         ElMessage.success("删除成功")
         await list()
       }
   )
 }
-const form=ref(null)
+
+/**
+ * 登出
+ * @return {Promise<void>}
+ */
 const out=async ()=>{
-  const result=await loginout();
+  const result = await loginOut();
   store.clearToken()
   ElMessage.success("退出成功")
   await router.push('/login')
 }
 
-const store = useCounterStore()
-
+// 启动时加载
+list()
 
 </script>
 <template>
