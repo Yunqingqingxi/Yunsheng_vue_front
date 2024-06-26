@@ -15,9 +15,24 @@ const router = createRouter({
             // route level code-splitting
             // this generates a separate chunk (About.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
-            component: () => import('../views/AboutView.vue')
+            component: () => import('../views/AboutView.vue'),
+            meta: {requiresAuth: true}
         }
     ]
+})
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.requiresAuth) {
+        const isUser = JSON.parse(localStorage.getItem('user'))
+        if (isUser.isAuthenticated) {
+            next()
+        } else {
+            alert("请先登录")
+            next("/")
+        }
+    } else {
+        next()
+    }
 })
 
 export default router
