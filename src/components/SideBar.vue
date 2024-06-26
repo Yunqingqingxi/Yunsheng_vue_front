@@ -21,7 +21,7 @@
       <el-menu-item index="/dish">
           <span>菜品管理</span>
         </el-menu-item>
-      <el-menu-item index="/catagory">
+      <el-menu-item index="/category">
           <span>分类管理</span>
         </el-menu-item>
       <el-menu-item index="/emp">

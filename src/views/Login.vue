@@ -200,8 +200,10 @@ const register = async () => {
  * 重置表单
  */
 const clearRegisterData=()=>{
-  registerData.value={
-    username:'',password:'',rePassword:''
+  formData.value = {
+    username: '',
+    password: '',
+    rePassword: ''
   }
 }
 
