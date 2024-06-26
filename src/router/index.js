@@ -5,9 +5,9 @@ import Welcome from "@/views/Login.vue"
 
 import Emp from "@/views/Emp.vue"
 import Dish from "@/views/Dish.vue"
-import Catagory from "@/views/Catagory.vue"
+import Category from "@/views/Category.vue"
 import AllTotal from "@/views/AllTotal.vue"
-import Main from '@/components/vue/Main.vue'
+import Main from '@/components/Main.vue'
 import Work from "@/views/Work.vue"
 import Order from "@/views/Order.vue";
 import SetEmal from "@/views/Setemal.vue"
@@ -36,8 +36,8 @@ const routes=[
                 component: Dish
             },
             {
-                path: '/catagory',
-                component: Catagory
+                path: '/category',
+                component: Category
             },
             {
                 path: '/setemal',

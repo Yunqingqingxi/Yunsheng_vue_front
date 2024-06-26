@@ -19,7 +19,7 @@ const addStudent = ref({
 </script>
 <template>
   <el-card class="page-container">
-
+    菜单
   </el-card>
 </template>
 

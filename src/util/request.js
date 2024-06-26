@@ -46,9 +46,12 @@ instance.interceptors.response.use(
     },
     error => {
         if (error.response.status === 401) {
-            ElMessage.error("请先登录")
+            ElMessage.error("未知错误")
             // Have problems here
             router.push('/login')
+        }
+        if (error.code === 'ECONNABORTED' && error.message.includes('timeout')) {
+            ElMessage.error('请求超时，请稍后再试');
         } else {
             ElMessage.error("连接错误")
         }

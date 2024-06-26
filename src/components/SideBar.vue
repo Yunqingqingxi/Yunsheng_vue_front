@@ -6,25 +6,25 @@
   <el-aside width="300px">
     <div class="el-aside__logo"></div>
     <el-menu active-text-color="#ffd04b" background-color="#232323" text-color="#fff"    router>
-        <el-menu-item index="/Work">
+      <el-menu-item index="/work">
         <span>工作台</span>
       </el-menu-item>
-        <el-menu-item index="/AllTotal">
+      <el-menu-item index="/allTotal">
         <span>数据统计</span>
       </el-menu-item>
-        <el-menu-item index="/Order">
+      <el-menu-item index="/order">
         <span>订单管理</span>
       </el-menu-item>
-        <el-menu-item index="/Setemal">
+      <el-menu-item index="/setemal">
           <span>套餐管理</span>
         </el-menu-item>
-          <el-menu-item index="/Dish">
+      <el-menu-item index="/dish">
           <span>菜品管理</span>
         </el-menu-item>
-          <el-menu-item index="/Catagory">
+      <el-menu-item index="/category">
           <span>分类管理</span>
         </el-menu-item>
-      <el-menu-item index="/Emp">
+      <el-menu-item index="/emp">
         <span>员工管理</span>
       </el-menu-item>
     </el-menu>
