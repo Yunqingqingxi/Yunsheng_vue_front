@@ -25,6 +25,11 @@ export const toRegister = (data) => {
         data
     })
 }
+/**
+ * 获取员工列表
+ * @param data
+ * @return {Promise<axios.AxiosResponse<any>>}
+ */
 export const getEmplist = (data) => {
     return request({
         method: 'Get',
@@ -32,7 +37,11 @@ export const getEmplist = (data) => {
 
     })
 }
-
+/**
+ * 修改员工信息
+ * @param data
+ * @return {Promise<axios.AxiosResponse<any>>}
+ */
 export const addEmprequset = (data) => {
     return request({
         method: 'POST',
@@ -40,9 +49,16 @@ export const addEmprequset = (data) => {
         data
     })
 }
-
-export const deleteEmp = (name) => {
-    return request.delete(`/admin/employee/${name}`)
+/**
+ * 修改员工信息
+ * @param id
+ * @return {Promise<axios.AxiosResponse<any>>}
+ */
+export const deleteEmp = ({name}) => {
+    return request({
+        method: 'DELETE',
+        url: `/admin/employee/${name}`,
+    })
 }
 
 

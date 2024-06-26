@@ -12,7 +12,7 @@
         <el-table-column label="电话" prop="phone"></el-table-column>
         <el-table-column label="状态" prop="status"></el-table-column>
         <el-table-column label="操作" width="100">
-          <template #default="{ row }">
+          <template #default="row">
             <el-button :icon="Edit" circle plain type="primary" @click="editCategory(row)"></el-button>
             <el-button :icon="Delete" circle plain type="danger" @click="deleteCategory(row)"></el-button>
           </template>
@@ -51,8 +51,10 @@ import {ref} from 'vue'
 import {useCounterStore} from "@/stores/counter.js";
 import {getEmplist, addEmprequset, deleteEmp} from "@/api/employee.js"
 import {BottomRight, Delete, Edit} from "@element-plus/icons-vue";
-const store = useCounterStore()
 
+const store = useCounterStore()
+const istrue = ref(false)
+const tableData = ref([])
 /**
  * 定义发送的数据
  * @type {Ref<UnwrapRef<{studentName: string, studentScore: string, studnetId: string}>>}
@@ -63,25 +65,40 @@ const addEmp = ref({
   sex:''
 
 })
-const istrue = ref(false)
-const tableData = ref([])
 
 const showdialog=()=>{
   istrue.value=true
 }
+/**
+ * 获取员工信息
+ */
 const getList = async () => {
 const result = await getEmplist()
   tableData.value = result.data.records
 
 }
-getList()
-const deleteCategory =async ()=>{
-    await deleteEmp(row.name)
+/**
+ * 删除员工信息
+ * @param row
+ */
+const deleteCategory =async (row)=>{
+  console.log({name:row.row.id})
+    await deleteEmp({name:row.row.username})
+    // ElMessage({
+    //   message: '删除成功',
+    //   type: 'success',
+    // })
+    getList()
 }
+/**
+ * 添加员工信息
+ */
 const addemprequest= async ()=>{
   const result = await addEmprequset(addEmp.value)
 
 }
+
+getList()
 </script>
 
 
