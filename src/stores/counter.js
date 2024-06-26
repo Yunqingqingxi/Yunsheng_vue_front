@@ -41,10 +41,7 @@ export const useCounterStore = defineStore('user', {
             this.user = null
         }
     },
-    /**
-     * 持久化配置
-     */
-    persist: {
+    persist: { // 持久化配置
         enabled: true,
         strategies: [
             {
