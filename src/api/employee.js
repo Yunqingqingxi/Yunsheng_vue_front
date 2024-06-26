@@ -25,4 +25,26 @@ export const toRegister = (data) => {
         data
     })
 }
+export const getEmplist = (data) => {
+    return request({
+        method: 'Get',
+        url: '/admin/employee/page?page=1&pageSize=10',
+
+    })
+}
+
+export const addEmprequset = (data) => {
+    return request({
+        method: 'POST',
+        url: '/admin/employee',
+        data
+    })
+}
+
+export const deleteEmp = (name) => {
+    return request.delete(`/admin/employee/${name}`)
+}
+
+
+
 
