@@ -1,34 +1,10 @@
-<script setup>
-
-import avatar from "@/assets/avatar.jpg";
-import {loginOut} from "@/api/score.js";
-import {ElMessage} from "element-plus";
-import router from "@/router/index.js";
-import {useCounterStore} from "@/stores/counter.js";
-
-const store = useCounterStore()
-
-/**
- * 登出
- * @return {Promise<void>}
- */
-const out=async ()=>{
-  const result = await loginOut();
-  store.clearToken()
-  ElMessage.success("退出成功")
-  await router.push('/login')
-}
-
-
-</script>
 
 <template>
   <el-header>
-    <div>刘聖豪<strong>早上好啊</strong></div>
+    <div>欢迎您:{{ store.user }}</div>
     <el-dropdown placement="bottom-end" @command="handleCommand">
                     <span class="el-dropdown__box">
                       <el-avatar :src="avatar"/>
-
                     </span>
       <template #dropdown>
         <el-dropdown-menu>
@@ -41,6 +17,32 @@ const out=async ()=>{
     </el-dropdown>
   </el-header>
 </template>
+
+<script setup>
+import {loginOut} from "@/api/score.js";
+import {ElMessage} from "element-plus";
+import router from "@/router/index.js";
+import {useCounterStore} from "@/stores/counter.js";
+import {ref} from "vue";
+
+const store = useCounterStore()
+const avatar = ref(null)
+store.setUser("111", 'admin')
+
+/**
+ * 登出
+ * @return {Promise<void>}
+ */
+const out = async () => {
+  const result = await loginOut();
+  store.clearToken()
+  ElMessage.success("退出成功")
+  await router.push('/login')
+}
+
+
+</script>
+
 
 <style scoped lang="scss">
 .el-header {

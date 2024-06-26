@@ -17,7 +17,9 @@ const instance = axios.create(
  */
 instance.interceptors.request.use(
     config => {
+
         const store = useCounterStore();
+
         if (store.token) {
             config.headers.Authorization = store.token
         }
@@ -47,7 +49,7 @@ instance.interceptors.response.use(
             // Have problems here
             router.push('/login')
         } else {
-            ElMessage.error('检查后端是否开启，redis是否连接')
+            ElMessage.error("连接错误")
         }
         return Promise.reject(error)
     }

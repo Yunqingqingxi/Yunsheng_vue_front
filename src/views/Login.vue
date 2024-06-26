@@ -28,8 +28,10 @@ const registerData=ref({
  */
 const login=async () => {
   const result = await toLogin(registerData.value);
-    ElMessage.success(result.msg?result.msg:'登录成功')
-  store.setUser(result.data, registerData.value.username)
+
+  ElMessage.success(result.msg ? result.msg : '登录成功')
+  store.setUser(result.data.token, registerData.value.username)
+
   await router.push('/buju')
 }
 /**

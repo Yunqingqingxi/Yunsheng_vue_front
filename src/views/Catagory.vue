@@ -124,18 +124,18 @@ list()
 
     <!--     添加分类弹窗-->
     <el-dialog v-model="dialogVisible" width="30%">
-      <el-form ref="form" :model="addStudeng"  label-width="100px" style="padding-right: 30px">
+      <el-form ref="form" :model="addStudent" label-width="100px" style="padding-right: 30px">
         <el-form-item label="姓名" prop="categoryName">
-          <el-input v-model="addStudeng.name" minlength="1" maxlength="10"></el-input>
+          <el-input v-model="addStudent.name" maxlength="10" minlength="1"></el-input>
         </el-form-item>
         <el-form-item label="班级" prop="categoryAlias">
-          <el-input v-model="addStudeng.teacher" minlength="1" maxlength="15"></el-input>
+          <el-input v-model="addStudent.teacher" maxlength="15" minlength="1"></el-input>
         </el-form-item>
         <el-form-item label="学号" prop="categoryAlias">
-          <el-input v-model="addStudeng.ascore" minlength="1" maxlength="15"></el-input>
+          <el-input v-model="addStudent.ascore" maxlength="15" minlength="1"></el-input>
         </el-form-item>
         <el-form-item label="出勤" prop="categoryAlias">
-          <el-input v-model="addStudeng.bscore" minlength="1" maxlength="15"></el-input>
+          <el-input v-model="addStudent.bscore" maxlength="15" minlength="1"></el-input>
         </el-form-item>
 
       </el-form>

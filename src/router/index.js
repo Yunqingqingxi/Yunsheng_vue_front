@@ -1,16 +1,16 @@
 import {createRouter, createWebHistory} from "vue-router";
 
-import Welcome from "@/components/Login.vue"
+import Welcome from "@/views/Login.vue"
 
 
-import Emp from "@/components/Emp.vue"
-import Dish from "@/components/Dish.vue"
-import Catagory from "@/components/Catagory.vue"
-import AllTotal from "@/components/AllTotal.vue"
-import buju from '@/components/vue/buju.vue'
-import Work from "@/components/Work.vue"
-import Order from "@/components/Order.vue";
-import SetEmal from "@/components/Setemal.vue"
+import Emp from "@/views/Emp.vue"
+import Dish from "@/views/Dish.vue"
+import Catagory from "@/views/Catagory.vue"
+import AllTotal from "@/views/AllTotal.vue"
+import Main from '@/components/vue/Main.vue'
+import Work from "@/views/Work.vue"
+import Order from "@/views/Order.vue";
+import SetEmal from "@/views/Setemal.vue"
 import NotFound from "@/views/NotFound.vue";
 
 const routes=[
@@ -23,8 +23,8 @@ const routes=[
         component: Welcome
     },
     {
-        path: '/buju',
-        component: buju,
+        path: '/home',
+        component: Main,
         redirect: '/Emp',
         children: [
             {
