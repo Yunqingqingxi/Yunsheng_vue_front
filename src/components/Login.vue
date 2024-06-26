@@ -6,18 +6,18 @@ import {ElMessage} from "element-plus";
 
 import {ref} from "vue";
 import {useRouter} from "vue-router";
-import {useTokenStore} from "@/store/token";
-import {tologin,toregister} from "@/api/user.js";
+import {useCounterStore} from "@/stores/counter.js";
+import {tologin, toregister} from "@/api/user.js";
 
 
 const router=useRouter()
-
-const tokenStore=useTokenStore()
-
+const store = useCounterStore()
 const form=ref(null)
 
 const registerData=ref({
-  username:'',password:'',rePassword:''
+  username: '',
+  password: '',
+  rePassword: ''
 })
 
 const isRegister=ref(false)
@@ -26,8 +26,8 @@ const isRegister=ref(false)
 const login=async () => {
     const result=await tologin(registerData.value);
     ElMessage.success(result.msg?result.msg:'登录成功')
-    tokenStore.setToken(result.data)
-    router.push('/buju')
+  store.setUser(result.data, registerData.value.username)
+  await router.push('/buju')
 }
 const register=async ()=>{
   const result=await toregister(registerData.value);

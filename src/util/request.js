@@ -1,6 +1,6 @@
 import axios from "axios";
 import {ElMessage} from "element-plus";
-import {useTokenStore} from "@/store/token";
+import {useCounterStore} from "@/stores/counter.js";
 
 import router from "@/router";
 
@@ -9,9 +9,9 @@ const instance = axios.create({baseURL: '/api'});
 
 instance.interceptors.request.use(
     config => {
-        const tokenStore = useTokenStore();
-        if (tokenStore.token) {
-            config.headers.Authorization = tokenStore.token
+        const store = useCounterStore();
+        if (store.token) {
+            config.headers.Authorization = store.token
         }
         return config
     },

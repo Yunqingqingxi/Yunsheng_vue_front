@@ -4,16 +4,16 @@ import avatar from "@/assets/avatar.jpg";
 import {loginout} from "@/api/score.js";
 import {ElMessage} from "element-plus";
 import router from "@/router/index.js";
-import {useTokenStore} from "@/store/token.js";
+import {useCounterStore} from "@/stores/counter.js";
 
 const out=async ()=>{
   const result=await loginout();
-  tokenStore.removeToken()
+  store.clearToken()
   ElMessage.success("退出成功")
-  router.push('/login')
+  await router.push('/login')
 }
 
-const tokenStore=useTokenStore()
+const store = useCounterStore()
 </script>
 
 <template>

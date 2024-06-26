@@ -1,10 +1,9 @@
 <script setup>
-import {Delete, Edit} from '@element-plus/icons-vue'
 import {ref} from 'vue'
 
 import {ElMessage, ElMessageBox} from "element-plus";
-import {getBlist,toadd,todelete,loginout,getSlist} from "@/api/score.js";
-import {useTokenStore} from "@/store/token.js";
+import {getBlist, loginout, toadd, todelete} from "@/api/score.js";
+import {useCounterStore} from "@/stores/counter.js";
 import router from "@/router/index.js";
 
 
@@ -54,19 +53,19 @@ const deleteCategory = (row) => {
       async () => {
         await  todelete(row.name)
         ElMessage.success("删除成功")
-        list()
+        await list()
       }
   )
 }
 const form=ref(null)
 const out=async ()=>{
-  const result=await loginout();
-  tokenStore.removeToken()
+  const result = await loginout();
+  store.clearToken()
   ElMessage.success("退出成功")
   router.push('/login')
 }
 
-const tokenStore=useTokenStore()
+const store = useCounterStore()
 
 
 </script>

@@ -3,9 +3,11 @@ import {Delete, Edit} from '@element-plus/icons-vue'
 import {ref} from 'vue'
 
 import {ElMessage, ElMessageBox} from "element-plus";
-import {getlist, getlistscore, toadd, todelete,loginout} from "@/api/student.js";
-import {useTokenStore} from "@/store/token.js";
+import {getlist, getlistscore, loginout, toadd, todelete} from "@/api/student.js";
+import {useCounterStore} from "@/stores/counter.js";
 import router from "@/router/index.js";
+
+const store = useCounterStore()
 
 const student = ref([
 
@@ -24,11 +26,13 @@ const resultvo=await getlistscore()
   student.value = result.data
  vo.value = resultvo.data
 }
+
 list()
+
 const toaddstu =async () => {
   const add=await toadd(addStudeng.value);
   ElMessage.success(add.message?add.message:'添加成功')
-  list()
+  await list()
 }
 
 const dialogVisible = ref(false)
@@ -49,7 +53,7 @@ const deleteCategory = (row) => {
       async () => {
         await  todelete(row.studentId)
         ElMessage.success("删除成功")
-     list()
+        await list()
       }
   )
 }
@@ -60,7 +64,7 @@ const form=ref(null)
 const tokenStore=useTokenStore()
 const out=async ()=>{
   const result=await loginout();
-  tokenStore.removeToken()
+  store.clearToken()
   ElMessage.success("退出成功")
 router.push('/login')
 }

@@ -3,8 +3,8 @@ import {Delete, Edit} from '@element-plus/icons-vue'
 import {ref} from 'vue'
 
 import {ElMessage, ElMessageBox} from "element-plus";
-import {getBlist,toadd,todelete,loginout,getSlist} from "@/api/score.js";
-import {useTokenStore} from "@/store/token.js";
+import {getBlist, getSlist, loginout, toadd, todelete} from "@/api/score.js";
+import {useCounterStore} from "@/stores/counter.js";
 import router from "@/router/index.js";
 
 
@@ -29,9 +29,8 @@ const list = async () => {
   vo.value=resultb.data
 
 }
+
 list()
-
-
 const dialogVisible = ref(false)
 const showDialog = () => {
   dialogVisible.value = true
@@ -40,7 +39,7 @@ const showDialog = () => {
 const toaddstu =async () => {
   const add=await toadd(addStudeng.value);
   ElMessage.success(add.message?add.message:'添加成功')
-  list()
+  await list()
 }
 
 const deleteCategory = (row) => {
@@ -56,19 +55,19 @@ const deleteCategory = (row) => {
       async () => {
         await  todelete(row.ec)
         ElMessage.success("删除成功")
-        list()
+        await list()
       }
   )
 }
 const form=ref(null)
 const out=async ()=>{
   const result=await loginout();
-  tokenStore.removeToken()
+  store.clearToken()
   ElMessage.success("退出成功")
-  router.push('/login')
+  await router.push('/login')
 }
 
-const tokenStore=useTokenStore()
+const store = useCounterStore()
 
 
 </script>
