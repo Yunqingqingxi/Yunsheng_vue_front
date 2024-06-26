@@ -1,10 +1,10 @@
+<template>
+  工作台
+</template>
+
 <script setup>
 
 </script>
-
-<template>
-工作台
-</template>
 
 <style scoped lang="scss">
 
