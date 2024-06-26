@@ -30,8 +30,8 @@ export const category = (data) => {
 export const page = (data) => {
     return request({
         method: "GET",
-        url: "admin/category/page",
-        data
+        url: "admin/category/page?page=1&pageSize=10&type=1",
+        // data
     })
 }
 /**

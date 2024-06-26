@@ -1,7 +1,7 @@
 <script setup>
 import {ref} from 'vue'
 import {useCounterStore} from "@/stores/counter.js";
-
+import {page,status,categoryList}from "@/api/category.js"
 const store = useCounterStore()
 
 /**
@@ -14,7 +14,7 @@ const classify = ref({
   sort: 0,
   type: 0
 });
-
+page()
 </script>
 <template>
   <el-card class="page-container">

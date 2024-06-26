@@ -8,7 +8,7 @@ import index from "@/router/index.js";
 import {createPinia} from "pinia";
 import {createPersistedState} from "pinia-persistedstate-plugin";
 import locale from 'element-plus/dist/locale/zh-cn'
-import 'virtual:windi.css'
+
 
 const app = createApp(App)
 const pinia = createPinia()
