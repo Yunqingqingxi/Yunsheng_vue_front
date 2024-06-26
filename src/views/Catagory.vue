@@ -18,7 +18,7 @@ const classify = ref({
 </script>
 <template>
   <el-card class="page-container">
-
+    分类
   </el-card>
 </template>
 
