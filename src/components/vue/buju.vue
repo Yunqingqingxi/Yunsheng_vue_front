@@ -1,8 +1,6 @@
 <script setup>
-import Home from "@/components/Emp.vue"
-import About from "@/components/Dish.vue"
 
-import El  from '@/components/vue/EleMent.vue'
+import El from '@/components/vue/EleMent.vue'
 import Top from '@/components/vue/TopBar.vue'
 </script>
 
