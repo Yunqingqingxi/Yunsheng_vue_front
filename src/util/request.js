@@ -53,7 +53,7 @@ instance.interceptors.response.use(
         if (error.code === 'ECONNABORTED' && error.message.includes('timeout')) {
             ElMessage.error('请求超时，请稍后再试');
         } else {
-            ElMessage.error("连接错误")
+            ElMessage.error("无法连接到服务器")
         }
         return Promise.reject(error)
     }

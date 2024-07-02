@@ -1,4 +1,3 @@
-
 <template>
   <el-header>
     <div>欢迎您:{{ store.user }}</div>

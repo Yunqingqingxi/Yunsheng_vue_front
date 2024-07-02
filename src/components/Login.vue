@@ -174,7 +174,6 @@ const login = async () => {
 
           await router.push('/home')
         } catch (err) {
-          ElMessage.error(err.message);
           loading.value = false
         } finally {
           loading.value = false

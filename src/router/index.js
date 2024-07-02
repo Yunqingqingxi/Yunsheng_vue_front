@@ -1,8 +1,6 @@
 import {createRouter, createWebHistory} from "vue-router";
 
-import Welcome from "@/views/Login.vue"
-
-
+import Welcome from "@/components/Login.vue"
 import Emp from "@/views/Emp.vue"
 import Dish from "@/views/Dish.vue"
 import Category from "@/views/Category.vue"
